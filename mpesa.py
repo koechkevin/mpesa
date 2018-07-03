@@ -1,22 +1,23 @@
 import requests
 import json
 import base64
+import datetime
 response1 = requests.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",auth=('ygTnjAUKeMv1H7b2WmzjfgNDQJcEKNl9','Yr6RUbPBGRZGG8xs')).text
 res=json.loads(response1)
 access_token = res['access_token']
 api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
 headers = { "Authorization": "Bearer "+access_token}
-timestamp="20180702180042"
+timestamp=datetime.datetime.today().strftime('%Y%m%d%H%M%S')
 shortcode="174379"
 passkey="bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
-def passout(word):
+def encode(word):
     output=[]
     for each in str(base64.b64encode(bytes(word, 'utf-8'))).split('b\''):
         output.append(each.split("'"))
     return output[1][0]
 	
     
-password=passout(shortcode+passkey+timestamp)
+password=encode(shortcode+passkey+timestamp)
 
 ammount=int(input('enter ammount   '))
 mobile=input('enter mobile in format 7XXXXXXXX   ')
