@@ -15,9 +15,12 @@ or
 ```
 venv/Scripts/activate
 ```
-```
-python mpesa.py
-```
+install required dependancies
 ```
 pip install requests
+```
+run the application
+
+```
+python mpesa.py
 ```
